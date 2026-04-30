@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple JS Form</title>
+</head>
+<body>
+
+    <h2>Exam Registration Form</h2>
+    
+    <label>Student Name:</label><br>
+    <input type="text" id="nameInput"><br><br>
+    
+    <label>Roll Number:</label><br>
+    <input type="text" id="rollInput"><br><br>
+    
+    <button onclick="showData()">Display Student Info</button>
+
+    <hr>
+
+    <div id="resultBox">
+        <h3>Output will appear here:</h3>
+        <p id="displayName"></p>
+        <p id="displayRoll"></p>
+    </div>
+
+    <script>
+        function showData() {
+            // 1. Fetch values from the input tags
+            const name = document.getElementById('nameInput').value;
+            const roll = document.getElementById('rollInput').value;
+
+            // 2. Validate and Display
+            if (name === "" || roll === "") {
+                alert("Please fill in both fields!");
+            } else {
+                // 3. Update the HTML content dynamically
+                document.getElementById('displayName').innerHTML = "Name: " + name;
+                document.getElementById('displayRoll').innerHTML = "Roll No: " + roll;
+            }
+        }
+    </script>
+
+</body>
+</html>
