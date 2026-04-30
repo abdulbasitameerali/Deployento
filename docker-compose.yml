@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: deployento-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./backend/data:/app/data
+      - ./backend/uploads:/app/uploads
+      - ./backend/public/deployments:/app/public/deployments
+      - ./backend/public/history:/app/public/history
+
+  frontend:
+    build: ./frontend
+    container_name: deployento-frontend
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
