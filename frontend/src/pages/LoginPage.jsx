@@ -18,7 +18,7 @@ const LoginPage = () => {
         console.log(`🔑 Attempting ${isLogin ? 'Login' : 'Signup'} at ${endpoint}...`);
         
         try {
-            const res = await fetch(`http://127.0.0.1:5000${endpoint}`, {
+            const res = await fetch(`${endpoint}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })

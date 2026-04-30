@@ -24,7 +24,7 @@ const AdminDashboard = () => {
 
     const fetchStats = async () => {
         try {
-            const r = await fetch('http://127.0.0.1:5000/api/admin/stats');
+            const r = await fetch('/api/admin/stats');
             const data = await r.json();
             setStats(data);
         } catch(e) {}
@@ -32,7 +32,7 @@ const AdminDashboard = () => {
 
     const fetchUsers = async () => {
         try {
-            const r = await fetch('http://127.0.0.1:5000/api/admin/users');
+            const r = await fetch('/api/admin/users');
             const data = await r.json();
             setUsers(data);
             // Derive deployments from users
@@ -46,7 +46,7 @@ const AdminDashboard = () => {
 
     const handleUpdatePlan = async (userId, plan) => {
         try {
-            await fetch('http://127.0.0.1:5000/api/admin/update-plan', {
+            await fetch('/api/admin/update-plan', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userId, plan })
             });

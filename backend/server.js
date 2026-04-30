@@ -303,7 +303,7 @@ app.post('/api/deploy', upload.single('file'), async (req, res) => {
         await fs.remove(tempDir);
         if (file.path) await fs.remove(file.path).catch(() => {});
 
-        const url = `http://127.0.0.1:${PORT}/deployments/${slug}/index.html`;
+        const url = `/deployments/${slug}/index.html`;
         const deployment = { id: historyId, slug, url, historyPath: historyDir, timestamp: new Date() };
         user.deployments.unshift(deployment);
         user.auditLogs.unshift({ action: 'DEPLOY', details: `Deployed "${slug}"`, time: new Date() });

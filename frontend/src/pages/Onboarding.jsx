@@ -16,7 +16,7 @@ const Onboarding = () => {
 
     const handlePlanSelect = async (planName) => {
         // Update user plan in "DB"
-        const res = await fetch('http://localhost:5000/api/admin/update-plan', {
+        const res = await fetch('/api/admin/update-plan', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId: user.id, plan: planName })

@@ -45,7 +45,7 @@ const DashboardContent = ({ auth }) => {
     const [edgeCode, setEdgeCode] = useState('// Edge Function — Contact Form Handler\nmodule.exports = async (req, res) => {\n  const { name, email, message } = req.body;\n  // TODO: send to your email service\n  res.json({ success: true });\n};');
 
     useEffect(() => {
-        const socket = io('http://127.0.0.1:5000');
+        const socket = io('');
         socketRef.current = socket;
         socket.on('build_log', (data) => {
             setBuildLogs(prev => [...prev, data]);
@@ -67,10 +67,10 @@ const DashboardContent = ({ auth }) => {
         formData.append('socketId', socketRef.current?.id || '');
 
         try {
-            const res = await fetch('http://127.0.0.1:5000/api/deploy', { method: 'POST', body: formData });
+            const res = await fetch('/api/deploy', { method: 'POST', body: formData });
             const data = await res.json();
             if (data.success) {
-                const liveUrl = data.userDeployments?.[0]?.url || `http://127.0.0.1:5000/deployments/${slug}/index.html`;
+                const liveUrl = data.userDeployments?.[0]?.url || `/deployments/${slug}/index.html`;
                 setDeployResult({ success: true, url: liveUrl });
                 updateDeployments(data.userDeployments);
                 setBuildLogs(prev => [...prev, { msg: `✅ LIVE! Your site is deployed at: ${liveUrl}`, timestamp: new Date() }]);
@@ -88,7 +88,7 @@ const DashboardContent = ({ auth }) => {
 
     const handleRollback = async (dep) => {
         try {
-            const res = await fetch('http://127.0.0.1:5000/api/rollback', {
+            const res = await fetch('/api/rollback', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userId: user.id, slug: dep.slug, historyPath: dep.historyPath })
             });
@@ -101,7 +101,7 @@ const DashboardContent = ({ auth }) => {
     const handleDelete = async (slug) => {
         if (!confirm(`Are you sure you want to permanently delete "${slug}"?`)) return;
         try {
-            const res = await fetch('http://127.0.0.1:5000/api/delete-project', {
+            const res = await fetch('/api/delete-project', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userId: user.id, slug })
             });
@@ -116,7 +116,7 @@ const DashboardContent = ({ auth }) => {
     const handleAddEnv = async () => {
         if (!envKey || !envValue) return;
         try {
-            const res = await fetch('http://127.0.0.1:5000/api/env-vars', {
+            const res = await fetch('/api/env-vars', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userId: user.id, key: envKey, value: envValue })
             });
